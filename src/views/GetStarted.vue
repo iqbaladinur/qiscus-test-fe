@@ -4,15 +4,15 @@
       <label for="userid">
         User ID
       </label>
-      <input type="text" class="startedForm focus:border-white" name="userid">
+      <input type="text" class="startedForm focus:border-white" name="userid" v-model="UserID">
       <label for="userid">
         Username
       </label>
-      <input type="text" class="startedForm focus:border-white" name="username">
+      <input type="text" class="startedForm focus:border-white" name="username" v-model="username">
       <label for="userid">
         User Key
       </label>
-      <input type="password" class="startedForm focus:border-white" name="userkey">
+      <input type="password" class="startedForm focus:border-white" name="userkey" v-model="userKey">
       <button class="rounded bg-blue-400 px-4 py-2 mt-5">
         Get Started
       </button>
@@ -24,6 +24,13 @@
 // @ is an alias to /src
 export default {
   name: 'GetStarted',
+  data() {
+    return {
+      userID: 'guest-101',
+      username: 'guest-101',
+      userkey: 'passkey'
+    }
+  }
 }
 </script>
 <style lang="postcss" scoped>
