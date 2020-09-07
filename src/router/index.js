@@ -1,27 +1,26 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import GetStarted from '../views/GetStarted.vue'
+import { authGuard } from '../services/authGuards'
 
 Vue.use(VueRouter)
 
-  const routes = [
+const routes = [
   {
     path: '/',
-    name: 'GetStarted',
-    component: GetStarted
+    name: 'Login',
+    component: GetStarted,
   },
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  // }
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue'),
+  }
 ]
 
 const router = new VueRouter({
   routes
 })
+router.beforeEach((to, from, next) => authGuard(to, from, next))
 
 export default router

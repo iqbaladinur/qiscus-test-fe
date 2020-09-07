@@ -5,22 +5,20 @@ import router from './router'
 import store from './store'
 import './assets/tailwind.css'
 import QiscusSDK from 'qiscus-sdk-core'
-const qiscus = new QiscusSDK();
-
+import { Emmiter } from './services/emmiter'
+const qiscus = new QiscusSDK()
 qiscus.init({
   // change this into your own AppId through https://dashboard.qiscus.com
   AppId: 'sdksample',
   options: {
     loginSuccessCallback: function() {
-      qiscus.chatTarget('guest@qiscus.com').then(res => {
-        console.info('chat with guest@qiscus.com', qiscus.selected);
-      });
+      Emmiter.$emit('login');
     },
     loginErrorCallback(data) {},
     newMessagesCallback(data) {},
     groupRoomCreatedCallback(data) {},
   },
-  mode: 'wide', // widget | wide
+  mode: 'widget', // widget | wide
 });
 
 Vue.config.productionTip = false
