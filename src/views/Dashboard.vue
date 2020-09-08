@@ -33,8 +33,9 @@
   </div>
 </template>
 <script>
-import TopNavbar from '@/components/TopNavbar.vue';
-import Room from '@/components/Room';
+import TopNavbar from '@/components/TopNavbar.vue'
+import Room from '@/components/Room'
+import Emitter from '@/services/emmiter'
 
 export default {
   name: 'DashboardListRoom',
@@ -52,11 +53,16 @@ export default {
     }
   },
   mounted(){
-    this.isLoading = true
+    const ctx = this
+    ctx.isLoading = true
     setTimeout(() => {
-      this.loadRooms()
-      this.isLoading = false
+      ctx.loadRooms()
+      ctx.isLoading = false
     }, 1000 * 1.5)
+    Emitter.$on('qiscus::new-message', (payload) => {
+      const index = ctx.roomList.findIndex((room) => room.id == payload.room_id)
+      ctx.roomList[index].last_comment_message = payload.message
+    });
   },
   methods: {
     loadRooms(){

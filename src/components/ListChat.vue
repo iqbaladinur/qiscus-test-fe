@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul>
+    <ul class="mb-16">
       <li
         v-for="(chat, idx) in listMessage"
         :key="idx"
@@ -9,6 +9,7 @@
           :message="chat.message"
           :email="chat.username_real"
           :time="chat.time"
+          :chat-object="chat"
         />
       </li>
     </ul>
