@@ -4,7 +4,7 @@
       <a v-if="isMainFrame" href="#">
         <img loading="lazy" :src="userData.avatar_url" class="h-10 w-10 rounded-full object-cover">
       </a>
-      <button v-else class="text-white text-xs focus:outline-none" @click="$router.go(-1)">
+      <button v-else class="text-white text-xs focus:outline-none" @click="$router.push('/dashboard')">
         Back
       </button>
     </div>
