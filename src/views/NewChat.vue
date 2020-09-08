@@ -1,7 +1,7 @@
 <template>
   <div class="h-full">
     <top-navbar :is-main-frame="false"/>
-    <ul class="list-container overflow-y-auto h-custom">
+    <ul v-if="contactList.length > 0" class="list-container overflow-y-auto h-custom">
 
     </ul>
   </div>
@@ -9,14 +9,18 @@
 
 <script>
 import TopNavbar from '@/components/TopNavbar.vue';
+import Contact from '@/components/Contact.vue';
 
 export default {
   name: 'NewChat',
   components: {
-    TopNavbar
+    TopNavbar,
+    Contact
   },
-  mounted() {
-    
+  data() {
+    return {
+      contactList: []
+    }
   }
 }
 </script>
