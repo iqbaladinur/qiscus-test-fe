@@ -2,7 +2,7 @@
   <a href="#">
     <li class="flex p-3">
       <div class="w-1/6">
-        <img :src="roomAvatar" class="w-10 h-10 rounded-full object-cover">
+        <img loading="lazy" :src="roomAvatar" class="w-10 h-10 rounded-full object-cover">
       </div>
       <div class="w-5/6 flex items-start justify-between border-b pb-2">
         <div>
