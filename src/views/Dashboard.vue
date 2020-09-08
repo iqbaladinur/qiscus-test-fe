@@ -63,8 +63,6 @@ export default {
       ctx.isLoading = false
     }, 1000 * 1.5)
     Emitter.$on('qiscus::new-message', (payload) => {
-      // const index = ctx.roomList.findIndex((room) => room.id == payload.room_id)
-      // ctx.roomList[index].last_comment_message = payload.message
       ctx.loadRooms()
       ctx.getUnreadCountMessage()
     });
@@ -82,7 +80,6 @@ export default {
         show_empty : false
       })
         .then(room => {
-          console.log(room)
           ctx.loadMoreText = 'Load more'
           if (ctx.isLoadMore) {
             ctx.roomList = [...ctx.roomList, ...room]

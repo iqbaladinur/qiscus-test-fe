@@ -58,7 +58,13 @@ export default {
   },
   computed: {
     lastDateFormated() {
-      return new Date(this.lastDate).toLocaleDateString()
+      const today = new Date().toLocaleDateString()
+      const theDate =  new Date(this.lastDate).toLocaleDateString()
+      if (today === theDate) {
+        return new Date(this.lastDate).toLocaleTimeString()
+      } else {
+        return new Date(this.lastDate).toLocaleDateString()
+      }
     },
     lastMessageFormated() {
       if (this.lastMessage.includes('[file]')) {
