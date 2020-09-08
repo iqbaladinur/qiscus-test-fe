@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { Emmiter } from './../services/emmiter';
+
 export default {
   name: 'GetStarted',
   data() {
@@ -37,11 +37,11 @@ export default {
   methods: {
     login() {
       const ctx = this;
-      console.log(ctx.qiscus.isLogin)
       if (ctx.userID && ctx.userName && ctx.userKey) {  
         ctx.qiscus.setUser(ctx.userID.trim(), ctx.userKey.trim(), ctx.userName.trim())
-          .then(function (authData) {
-            ctx.$store.dispatch('setLogin', true);
+          .then(function () {
+            localStorage.setItem('authData', JSON.stringify(ctx.qiscus.userData))
+            ctx.$store.dispatch('setLogin', true)
             ctx.$router.push('/dashboard')
           })
           .catch(function (error) {
