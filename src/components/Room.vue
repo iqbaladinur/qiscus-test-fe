@@ -1,6 +1,6 @@
 <template>
   <router-link tag="a" :to="`/room?roomId=${roomId}&title=${roomTitle}`">
-    <li class="flex p-3">
+    <li class="flex relative p-3">
       <div class="w-1/6">
         <img loading="lazy" :src="roomAvatar" class="w-10 h-10 rounded-full object-cover">
       </div>
@@ -17,6 +17,9 @@
           {{ lastDateFormated }}
         </p>
       </div>
+      <p v-if="notif > 0" class="absolute right-0 bottom-0 text-white mb-5 text-center mr-5 bg-green-600 rounded-full w-3 h-3" style="font-size: 0.6rem">
+        {{ notif }}
+      </p>
     </li>
   </router-link>
 </template>
@@ -48,6 +51,10 @@ export default {
       default: '1/1/1990',
       required: false
     },
+    notif: {
+      type: Number,
+      default: 0
+    }
   },
   computed: {
     lastDateFormated() {

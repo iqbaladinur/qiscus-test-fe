@@ -10,8 +10,9 @@
         :room-avatar="room.avatar"
         :last-message="room.last_comment_message"
         :last-date="room.last_comment_message_created_at"
+        :notif="room.count_notif"
       />
-      <li class="text-center my-2">
+      <li v-if="roomList.length >= perPage " class="text-center my-2">
         <button class="text-xs rounded bg-blue-400 py-2 px-4" @click="nextPage">
           {{ loadMoreText }}
         </button>
@@ -36,6 +37,7 @@
 import TopNavbar from '@/components/TopNavbar.vue'
 import Room from '@/components/Room'
 import Emitter from '@/services/emmiter'
+import debounce from 'lodash.debounce'
 
 export default {
   name: 'DashboardListRoom',
@@ -49,7 +51,8 @@ export default {
       page: 1,
       roomList: [],
       loadMoreText: 'Load more',
-      isLoading: true
+      isLoading: true,
+      isLoadMore: false
     }
   },
   mounted(){
@@ -60,15 +63,17 @@ export default {
       ctx.isLoading = false
     }, 1000 * 1.5)
     Emitter.$on('qiscus::new-message', (payload) => {
-      const index = ctx.roomList.findIndex((room) => room.id == payload.room_id)
-      ctx.roomList[index].last_comment_message = payload.message
+      // const index = ctx.roomList.findIndex((room) => room.id == payload.room_id)
+      // ctx.roomList[index].last_comment_message = payload.message
+      ctx.loadRooms()
+      ctx.getUnreadCountMessage()
     });
   },
   beforeDestroy() {
     Emitter.$off('qiscus::new-message')
   },
   methods: {
-    loadRooms(){
+    loadRooms: debounce(function() {
       const ctx = this
       ctx.loadMoreText = 'Loading..'
       ctx.qiscus.loadRoomList({
@@ -77,17 +82,34 @@ export default {
         show_empty : false
       })
         .then(room => {
+          console.log(room)
           ctx.loadMoreText = 'Load more'
-          ctx.roomList = [...ctx.roomList, ...room]
+          if (ctx.isLoadMore) {
+            ctx.roomList = [...ctx.roomList, ...room]
+          } else {
+            ctx.roomList = room
+          }
+          ctx.isLoadMore = false
         })
         .catch(err => {
           ctx.loadMoreText = 'Failed, try again'
           console.error(err)
         })
-    },
+    }, 1000),
     nextPage() {
-      this.page += 1;
-      this.loadRooms();
+      ctx.isLoadMore = true
+      this.page += 1
+      this.loadRooms()
+    },
+    getUnreadCountMessage() {
+      const ctx = this
+      ctx.qiscus.getTotalUnreadCount()
+        .then(function (unreadCount) {
+            console.info(unreadCount)
+        })
+        .catch(function (error) {
+            console.error(error)
+        })
     }
   }
 }

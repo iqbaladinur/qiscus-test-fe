@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "lodash.debounce": "^4.0.8",
     "qiscus-sdk-core": "^2.10.0",
     "register-service-worker": "^1.7.1",
     "tailwindcss": "^1.8.4",
