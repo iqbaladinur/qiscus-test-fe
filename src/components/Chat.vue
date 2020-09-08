@@ -5,7 +5,7 @@
         <p class="text-xs">{{time}}</p>
         <status :status="chatObject.status" />
       </div>
-      <div class="bg-gray-200 p-2 text-base rounded">
+      <div class="bg-gray-200 p-2 text-xs" :class="{ 'rounded-l-lg rounded-br-lg' : isAdmin, 'rounded-r-lg rounded-bl-lg' : !isAdmin}">
         <p v-if="chatObject.type === 'text'">
           {{ message }}
         </p>

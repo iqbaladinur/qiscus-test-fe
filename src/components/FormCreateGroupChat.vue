@@ -7,7 +7,7 @@
       </label>
       <input type="text" class="mt-2 focus:border-white rounded bg-gray-300 p-2 w-full text-xs" placeholder="Nongkrong" name="roomName" v-model="roomName">
       <button class="px-4 py-2 rounded bg-blue-400 text-xs mt-2">
-        Create Group
+        {{ buttonTextCreateGroup }}
       </button>
     </form>
     <ul class="bg-white h-modal overflow-y-auto list-container rounded-b-lg">
@@ -41,7 +41,8 @@ export default {
     return {
       roomName: null,
       contactList: [],
-      selectedUserId: []
+      selectedUserId: [],
+      buttonTextCreateGroup: 'Create Group'
     }
   },
   mounted() {
@@ -58,11 +59,16 @@ export default {
     },
     createGroupRoom() {
       const ctx = this;
-      ctx.qiscus.createGroupRoom(ctx.roomName.trim(), ctx.selectedUserId)
+      ctx.buttonTextCreateGroup = 'Creating Group..';
+      ctx.qiscus.createGroupRoom(ctx.roomName.trim(), ctx.selectedUserId, {
+        avatarURL: 'https://d1edrlpyc25xu0.cloudfront.net/kiwari-prod/image/upload/75r6s_jOHa/1507541871-avatar-mine.png'
+      })
         .then(room => {
-          //do
+          ctx.buttonTextCreateGroup = 'Create Group';
+          ctx.$router.push(`/room?roomId=${room.id}&title=${room.name}`)
         })
         .catch(error => {
+          ctx.buttonTextCreateGroup = 'Try Again';
           console.error(error)
         })
     },
