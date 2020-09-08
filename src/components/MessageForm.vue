@@ -4,7 +4,7 @@
       <div class="flex items-center justify-between">
         <div class="w-1/6"></div>
         <div class="w-4/6">
-          <input type="text" class="p-2 rounded my-2 w-full bg-transparant text-sm text-gray-500 focus:outline-none" placeholder="Text message here" v-model="message">
+          <input type="text" class="p-2 rounded my-2 w-full bg-transparant text-sm text-gray-700 focus:outline-none" placeholder="Text message here" v-model="message">
         </div>
         <div class="w-1/6">
           <button class="text-3xl px-4" type="submit">

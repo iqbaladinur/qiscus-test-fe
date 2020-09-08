@@ -64,6 +64,9 @@ export default {
       ctx.roomList[index].last_comment_message = payload.message
     });
   },
+  beforeDestroy() {
+    Emitter.$off('qiscus::new-message')
+  },
   methods: {
     loadRooms(){
       const ctx = this

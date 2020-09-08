@@ -14,7 +14,7 @@
 import TopNavbar from '@/components/TopNavbar.vue';
 import ListChat from '@/components/ListChat.vue';
 import MessageForm from '@/components/MessageForm';
-
+import Emitter from '@/services/emmiter'
 
 export default {
   name: 'ChatRoom',
@@ -25,7 +25,8 @@ export default {
   },
   data() {
     return {
-      listComment: []
+      listComment: [],
+      scrollPosition: 0
     }
   },
   created(){
@@ -33,23 +34,34 @@ export default {
   },
   mounted() {
     this.loadRoom()
+    this.scrollToBottom()
+    Emitter.$on('qiscus::new-message', (payload) => {
+      this.scrollToBottom()
+    });
+  },
+  beforeDestroy() {
+    Emitter.$off('qiscus::new-message');
   },
   methods: {
     loadRoom() {
       const ctx = this
       ctx.qiscus.getRoomById(ctx.$route.query.roomId)
         .then(room => {
-          console.info(room)
           ctx.listComment = room.comments
-          ctx.scrollToBottom()
         })
         .catch(error => {
           console.error(error)
         })
     },
     scrollToBottom() {
-      const container = this.$refs.scrollRoomContainer
-      container.scrollTop = container.scrollHeight
+      setTimeout(() => {
+        const container = this.$refs.scrollRoomContainer
+        console.log(container.scrollHeight)
+        container.scrollTo({
+          top: container.scrollHeight,
+          behavior: 'smooth'
+        })
+      }, 1000);
     }
   }
 }
