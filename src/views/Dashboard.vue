@@ -1,7 +1,7 @@
 <template>
   <div class="h-full">
     <top-navbar />
-    <ul v-if="roomList.length > 0" class="chatlist-container overflow-y-auto h-custom">
+    <ul v-if="roomList.length > 0" class="list-container overflow-y-auto h-custom">
       <room
         v-for="(room, index) in roomList"
         :key="index"
@@ -11,12 +11,23 @@
         :last-message="room.last_comment_message"
         :last-date="room.last_comment_message_created_at"
       />
+      <li class="text-center my-2">
+        <button class="text-xs rounded bg-blue-400 py-2 px-4" @click="nextPage">
+          {{ loadMoreText }}
+        </button>
+      </li>
     </ul>
     <div v-else class="flex h-custom items-center justify-center">
-      <div>
-        <button>
-          createChat
-        </button>
+      <div v-if="!isLoading">
+        <p class="text-center py-2">
+          No Chats
+        </p>
+        <a href="#" class="px-4 py-2 rounded bg-blue-400 w-full">
+          Start Chat
+        </a>
+      </div>
+      <div v-else>
+        loading..
       </div>
     </div>
   </div>
@@ -35,38 +46,40 @@ export default {
     return {
       perPage: 20,
       page: 1,
-      roomList: []
+      roomList: [],
+      loadMoreText: 'Load more',
+      isLoading: true
     }
   },
   mounted(){
-    //this.loadRooms()
+    this.isLoading = true
+    setTimeout(() => {
+      this.loadRooms()
+      this.isLoading = false
+    }, 1000 * 3)
   },
   methods: {
     loadRooms(){
       const ctx = this
+      ctx.loadMoreText = 'Loading..'
       ctx.qiscus.loadRoomList({
         page: ctx.page,
-        limit: ctx.perPage
+        limit: ctx.perPage,
+        show_empty : false
       })
         .then(room => {
-          ctx.roomList = room
+          ctx.loadMoreText = 'Load more'
+          ctx.roomList = [...ctx.roomList, ...room]
         })
         .catch(err => {
+          ctx.loadMoreText = 'Failed, try again'
           console.error(err)
         })
+    },
+    nextPage() {
+      this.page += 1;
+      this.loadRooms();
     }
   }
 }
 </script>
-<style scoped>
-.h-custom{
-  height: calc(100vh - 4rem);
-}
-.chatlist-container{
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-.chatlist-container::-webkit-scrollbar {
-  display: none;
-}
-</style>

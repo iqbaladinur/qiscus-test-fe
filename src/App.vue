@@ -12,3 +12,15 @@ export default {
   name: 'App',
 }
 </script>
+<style>
+.h-custom{
+  height: calc(100vh - 4rem);
+}
+.list-container{
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.list-container::-webkit-scrollbar {
+  display: none;
+}
+</style>

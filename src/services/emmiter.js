@@ -1,2 +1,4 @@
 import Vue from 'vue'
-export const Emmiter = new Vue()
+const Emitter = new Vue()
+
+export default Emitter

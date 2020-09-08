@@ -1,12 +1,20 @@
 import QiscusSDK from 'qiscus-sdk-core'
-
+import Emitter from './emmiter';
 const qiscus = new QiscusSDK()
 qiscus.init({
   AppId: 'sdksample',
   options: {
-    loginSuccessCallback: function() {},
-    loginErrorCallback(data) {},
-    newMessagesCallback(data) {},
+    loginSuccessCallback: function(authData) {
+      Emitter.$emit('qiscus::login-success', authData)
+    },
+    loginErrorCallback: function(errorData) {
+      Emitter.$emit('qiscus::login-error', errorData)
+    },
+    newMessagesCallback: function(messages) {
+      messages.forEach(function(it) {
+        Emitter.$emit('qiscus::new-message', it)
+      })
+    },
     groupRoomCreatedCallback(data) {},
   },
   mode: 'wide', // widget | wide

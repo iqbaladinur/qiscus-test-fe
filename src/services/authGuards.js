@@ -9,6 +9,7 @@ const authGuard = (to, from, next) => {
     }
   } else {
     if (store.state.isLogin) {
+      store.dispatch('setPageName', to.name)
       next()
     } else {
       next('/')
