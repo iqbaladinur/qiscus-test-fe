@@ -1,5 +1,5 @@
 <template>
-  <a href="#">
+  <router-link tag="a" :to="`/room?roomId=${roomId}&title=${roomTitle}`">
     <li class="flex p-3">
       <div class="w-1/6">
         <img loading="lazy" :src="roomAvatar" class="w-10 h-10 rounded-full object-cover">
@@ -18,7 +18,7 @@
         </p>
       </div>
     </li>
-  </a>
+  </router-link>
 </template>
 
 <script>

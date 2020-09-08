@@ -56,7 +56,7 @@ export default {
     setTimeout(() => {
       this.loadRooms()
       this.isLoading = false
-    }, 1000 * 3)
+    }, 1000 * 1.5)
   },
   methods: {
     loadRooms(){
