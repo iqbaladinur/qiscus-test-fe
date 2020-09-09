@@ -8,7 +8,7 @@
         <chat
           :message="chat.message"
           :email="chat.username_real"
-          :time="chat.time"
+          :time="chat.timestamp"
           :chat-object="chat"
         />
       </li>

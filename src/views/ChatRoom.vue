@@ -37,6 +37,7 @@ export default {
     this.scrollToBottom()
     Emitter.$on('qiscus::new-message', (payload) => {
       this.scrollToBottom()
+      console.log('fired')
     });
   },
   beforeDestroy() {
@@ -47,6 +48,7 @@ export default {
       const ctx = this
       ctx.qiscus.getRoomById(ctx.$route.query.roomId)
         .then(room => {
+          console.log(room.comments)
           ctx.listComment = room.comments
         })
         .catch(error => {
@@ -56,7 +58,6 @@ export default {
     scrollToBottom() {
       setTimeout(() => {
         const container = this.$refs.scrollRoomContainer
-        console.log(container.scrollHeight)
         container.scrollTo({
           top: container.scrollHeight,
           behavior: 'smooth'

@@ -22,8 +22,11 @@ export default {
         case 'sent':
           symbol = '✔️';
           break;
-        case 'read':
+        case 'delivered':
           symbol = '✔️✔️';
+          break;
+        case 'read':
+          symbol = '✅✅';
           break;
         case 'pending':
           symbol = '⏱️';

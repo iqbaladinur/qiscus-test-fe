@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import Emitter from '@/services/emmiter'
+
 export default {
   name: 'MessageForm',
   props: {
@@ -36,7 +38,7 @@ export default {
       if (ctx.message) {
         ctx.qiscus.sendComment(ctx.roomId, ctx.message)
         .then(function (comment) {
-            console.log(comment)
+            Emitter.$emit('qiscus::new-message')
         })
         .catch(function (error) {
             console.error(error)

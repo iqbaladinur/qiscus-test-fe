@@ -2,10 +2,10 @@
   <div class="flex my-2 p-3" :class="{ 'justify-end items-center' : isAdmin }">
     <div class="w-auto flex">
       <div class="mx-2" v-if="isAdmin">
-        <p class="text-xs">{{time}}</p>
         <status :status="chatObject.status" />
       </div>
       <div class="bg-gray-200 p-2 text-xs" :class="{ 'rounded-l-lg rounded-br-lg' : isAdmin, 'rounded-r-lg rounded-bl-lg' : !isAdmin}">
+        <p class="text-gray-500" style="font-size: 0.5rem">{{dateFormat}}</p>
         <p v-if="chatObject.type === 'text'">
           {{ message }}
         </p>
@@ -14,7 +14,6 @@
         </a>
       </div>
       <div class="mx-2" v-if="!isAdmin">
-        <p class="text-xs">{{time}}</p>
       </div>
     </div>
   </div>
@@ -50,6 +49,9 @@ export default {
       const userData = this.$store.state.userData
       return userData.email === this.email
     },
+    dateFormat() {
+      return new Date(this.time).toLocaleString()
+    }
   }
 }
 </script>

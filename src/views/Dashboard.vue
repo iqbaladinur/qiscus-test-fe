@@ -64,7 +64,6 @@ export default {
     }, 1000 * 1.5)
     Emitter.$on('qiscus::new-message', (payload) => {
       ctx.loadRooms()
-      ctx.getUnreadCountMessage()
     });
   },
   beforeDestroy() {
@@ -92,22 +91,12 @@ export default {
           ctx.loadMoreText = 'Failed, try again'
           console.error(err)
         })
-    }, 1000),
+    }, 400),
     nextPage() {
-      ctx.isLoadMore = true
+      this.isLoadMore = true
       this.page += 1
       this.loadRooms()
     },
-    getUnreadCountMessage() {
-      const ctx = this
-      ctx.qiscus.getTotalUnreadCount()
-        .then(function (unreadCount) {
-            console.info(unreadCount)
-        })
-        .catch(function (error) {
-            console.error(error)
-        })
-    }
   }
 }
 </script>
