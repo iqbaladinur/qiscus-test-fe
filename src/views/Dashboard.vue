@@ -20,12 +20,12 @@
     </ul>
     <div v-else class="flex h-custom items-center justify-center">
       <div v-if="!isLoading">
-        <p class="text-center py-2">
+        <p class="text-center py-2 text-xs mb-2">
           No Chats
         </p>
-        <a href="#" class="px-4 py-2 rounded bg-blue-400 w-full">
+        <router-link to="/new" tag="button" class="px-4 py-2 rounded bg-blue-400 w-full">
           Start Chat
-        </a>
+        </router-link>
       </div>
       <div v-else>
         loading..
