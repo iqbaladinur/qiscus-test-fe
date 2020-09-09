@@ -1,5 +1,5 @@
 <template>
-  <nav class="flex justify-between items-center bg-indigo-500 text-white rounded-t-lg h-16" role="navigation">
+  <nav class="flex justify-between items-center bg-indigo-500 text-white lg:rounded-t-lg h-16" role="navigation">
     <div class="w-1/4 flex justify-center items-center">
       <router-link v-if="isMainFrame" tag="a" to="/profile">
         <img loading="lazy" :src="userData.avatar_url" class="h-10 w-10 rounded-full object-cover">
