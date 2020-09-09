@@ -10,10 +10,13 @@
       </div>
     </div>
     <div class="flex justify-between text-xs items-center shadow">
-      <p class="p-3">
+      <form v-if="changeForm" @submit="updateName" v-on:submit.prevent class="w-full p-1">
+        <input type="text" class="w-full p-2 bg-gray-200 rounded" v-model="username">
+      </form>
+      <p v-else class="p-3">
         😲 {{ userData.username }}
       </p>
-      <button class="text-lg py-1 px-2 border-white border-2 rounded mr-3">
+      <button @click="changeForm = !changeForm" class="text-lg py-1 px-2 border-white border-2 rounded mr-3">
         📝
       </button>
     </div>
@@ -23,7 +26,7 @@
       </p>
     </div>
     <div class="absolute bottom-0 left-0 w-full text-xs flex justify-between items-center shadow">
-      <button class="py-3 px-2 w-full">
+      <button class="py-3 px-2 w-full" @click="logout">
         ❌ Logout
       </button>
     </div>
@@ -41,6 +44,35 @@ export default {
   },
   computed: {
     ...mapState(['userData'])
+  },
+  data() {
+    return {
+      changeForm: false,
+      username: this.$store.state.userData.username
+    }
+  },
+  methods: {
+    updateName() {
+      const ctx = this
+      ctx.qiscus.updateProfile({
+          name: ctx.username 
+      }).then(function (user) {
+          localStorage.setItem('authData', JSON.stringify(user))
+          ctx.$store.dispatch('setUserData', user)
+          ctx.changeForm = false
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    },
+    logout() {
+      const ctx = this
+      ctx.qiscus.logout()
+      localStorage.clear()
+      ctx.$store.dispatch('setLogin', false)
+      ctx.$store.dispatch('setUserData', null)
+      ctx.$router.push('/')
+    }
   }
 }
 </script>
