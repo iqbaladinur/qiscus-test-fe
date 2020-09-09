@@ -48,7 +48,7 @@ export default {
       const ctx = this
       ctx.qiscus.getRoomById(ctx.$route.query.roomId)
         .then(room => {
-          console.log(room.comments)
+          console.log(room)
           ctx.listComment = room.comments
         })
         .catch(error => {

@@ -4,7 +4,7 @@
     <div class="relative shadow">
       <img :src="userData.avatar_url" class="h-48 w-full object-cover">
       <div class="absolute flex justify-end items-center bottom-0 right-0 w-full h-16 bg-black bg-opacity-25">
-        <button class="text-lg py-1 px-2 border-white border-2 rounded mr-3">
+        <button class="text-lg py-1 px-2 border-white border-2 rounded mr-3" @click="changeProfile">
           🖼️
         </button>
       </div>
@@ -64,6 +64,9 @@ export default {
         .catch(function (error) {
           console.log(error)
         })
+    },
+    changeProfile() {
+      alert('not implemented yet')
     },
     logout() {
       const ctx = this

@@ -14,22 +14,27 @@ const routes = [
   {
     path: '/dashboard',
     name: 'Chats',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue'),
+    component: () => import(/* webpackChunkName: "dashboard" */ '../views/Dashboard.vue'),
   },
   {
     path: '/new',
     name: 'New Chat',
-    component: () => import(/* webpackChunkName: "about" */ '../views/NewChat.vue'),
+    component: () => import(/* webpackChunkName: "new-chat" */ '../views/NewChat.vue'),
   },
   {
     path: '/room',
     name: 'Chat Room',
-    component: () => import(/* webpackChunkName: "about" */ '../views/ChatRoom.vue'),
+    component: () => import(/* webpackChunkName: "chat-room" */ '../views/ChatRoom.vue'),
   },
   {
     path: '/profile',
     name: 'Profile',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Profile.vue'),
+    component: () => import(/* webpackChunkName: "profile" */ '../views/Profile.vue'),
+  },
+  {
+    path: '/info',
+    name: 'Room Info',
+    component: () => import(/* webpackChunkName: "profile" */ '../views/ProfileRoom.vue'),
   }
 ]
 
